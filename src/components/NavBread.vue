@@ -3,7 +3,7 @@
     <div class="container">
       <nav class="nav-breadcrumb">
         <a href="/">Home</a>
-        <span>Goods</span>
+        <slot name="bread"></slot>
       </nav>
     </div>
   </div>
