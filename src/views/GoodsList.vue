@@ -76,8 +76,6 @@
   </div>
 </template>
 <script>
-import './../assets/css/base.css'
-import './../assets/css/product.css'
 import NavHeader from '@/components/NavHeader'
 import NavFooter from '@/components/NavFooter'
 import NavBread from '@/components/NavBread'
@@ -102,7 +100,7 @@ export default {
   },
   methods: {
     getGoodsList () {
-      axios.get('/static/goods.json').then((res) => {
+      axios.get('/bapem/goods.json').then((res) => {
         var result = res.data
         if (result.status === '0') {
           this.goodsList = result.list
@@ -112,11 +110,11 @@ export default {
     },
     showFilterPop () {
       this.filterBy = true
-      this.overLayFlag=true
+      this.overLayFlag = true
     },
-    closeFilterPop(){
-      this.filterBy=false
-      this.overLayFlag=false
+    closeFilterPop () {
+      this.filterBy = false
+      this.overLayFlag = false
     }
   }
 }

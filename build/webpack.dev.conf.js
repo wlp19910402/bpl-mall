@@ -66,7 +66,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     new CopyWebpackPlugin([,
       {
         from: path.resolve(__dirname, '../bapem'),
-        to: config.dev.assetsSubDirectory,
+        to:'bapem',
         ignore: ['.*']
       }, {
         from: path.resolve(__dirname, '../static'),
