@@ -29,3 +29,14 @@ npm test
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
 # bpl-mall
+
+
+
+# express服务端：
+``` bash
+# 全局安装
+cnpm install -g express-generator
+# 创建express 服务
+express server
+```
+
