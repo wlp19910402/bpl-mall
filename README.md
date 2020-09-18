@@ -38,5 +38,6 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 cnpm install -g express-generator
 # 创建express 服务
 express server
+cnpm i ejs --save
 ```
 
