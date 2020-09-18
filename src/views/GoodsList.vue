@@ -54,12 +54,12 @@
                 <li v-for="item in goodsList" :key="item.productId">
                   <div class="pic">
                     <a href="#"
-                      ><img v-lazy="`static/img/${item.productImg}`" alt=""
+                      ><img v-lazy="`static/img/${item.productImage}`" alt=""
                     /></a>
                   </div>
                   <div class="main">
                     <div class="name">{{ item.productName }}</div>
-                    <div class="price">{{ item.productPrice }}</div>
+                    <div class="price">{{ item.salePrice }}</div>
                     <div class="btn-area">
                       <a href="javascript:;" class="btn btn--m">加入购物车</a>
                     </div>
@@ -100,11 +100,10 @@ export default {
   },
   methods: {
     getGoodsList () {
-      axios.get('/bapem/goods.json').then((res) => {
+      axios.get('/goods').then((res) => {
         var result = res.data
         if (result.status === '0') {
-          this.goodsList = result.list
-          console.log(this.goodsList)
+          this.goodsList = result.result.list
         }
       })
     },

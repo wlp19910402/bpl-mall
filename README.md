@@ -39,5 +39,8 @@ cnpm install -g express-generator
 # 创建express 服务
 express server
 cnpm i ejs --save
+# 管理mongodb
+cnpm i mongoose --save
+
 ```
 
