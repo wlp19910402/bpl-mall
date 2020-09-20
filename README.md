@@ -41,6 +41,9 @@ express server
 cnpm i ejs --save
 # 管理mongodb
 cnpm i mongoose --save
+# 自动启动后台
+supervisor
 
+安装express-session
 ```
 

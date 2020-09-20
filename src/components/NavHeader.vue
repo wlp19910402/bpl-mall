@@ -30,7 +30,7 @@
           <!--<a href="/" class="navbar-link">我的账户</a>-->
           <span class="navbar-link" v-if="nickName">{{nickName}}</span>
           <a href="javascript:void(0)" class="navbar-link" @click="loginModalFlag=true" v-if="!nickName">Login</a>
-          <a href="javascript:void(0)" class="navbar-link" v-if="nickName">Logout</a>
+          <a href="javascript:void(0)" class="navbar-link" @click="logout" v-if="nickName">Logout</a>
           <div class="navbar-cart-container">
             <span class="navbar-cart-count"></span>
             <a class="navbar-link navbar-cart-link" href="/#/cart">
@@ -80,6 +80,7 @@
 
 <script>
 import axios from 'axios'
+
 export default {
   name: 'NavHeader',
   data () {
@@ -90,6 +91,9 @@ export default {
       loginModalFlag: false,
       nickName: ''
     }
+  },
+  mounted () {
+    this.checkLogin()
   },
   methods: {
     login () {
@@ -106,9 +110,23 @@ export default {
           this.errorTip = false
           console.log('登录成功')
           this.loginModalFlag = false
-          this.nickName = res.result.userName
+          this.nickName = res.result.userName || ''
         } else {
           this.errorTip = true
+        }
+      })
+    },
+    logout () {
+      axios.get('/users/logout').then((res) => {
+        if (res.data.status === '0') {
+          this.nickName = ''
+        }
+      })
+    },
+    checkLogin () {
+      axios.get('/users/checkLogin').then(res => {
+        if (res.data.status === '0') {
+          this.nickName = res.data.result
         }
       })
     }

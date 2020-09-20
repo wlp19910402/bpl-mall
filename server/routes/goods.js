@@ -25,7 +25,7 @@ mongoose.connection.on("disconnected", function () {
   console.log("MongoDB connected disconnected.")
 })
 
-router.get('/', function (request, response, next) {
+router.get('/list', function (request, response, next) {
   let page = parseInt(request.param("page"))
   let pageSize= parseInt(request.param("pageSize"))
   let priceLevel= request.param("priceLevel")
