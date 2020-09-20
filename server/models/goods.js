@@ -8,7 +8,8 @@ let productSchema = new Schema({
   productId: {type: String},
   productName: String,
   salePrice: Number,
-  productImage: String
+  productImage: String,
+  productUrl:String
 })
 // Good 与 goods 相关联
 module.exports = mongoose.model('Good', productSchema, 'goods')
