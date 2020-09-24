@@ -120,7 +120,7 @@
               Item total: <span class="total-price">{{totalPrice | currency('$')}}</span>
             </div>
             <div class="btn-wrap">
-              <a class="btn btn--red">Checkout</a>
+              <a class="btn btn--red" :class="{'btn--dis':checkedCount===0}" @click="checkout">Checkout</a>
             </div>
           </div>
         </div>
@@ -252,11 +252,15 @@ export default {
           })
         }
       })
+    },
+    checkout () {
+      if (this.checkedCount > 0) {
+        this.$router.push('/address')
+      }
     }
   }
 }
 </script>
-click
 <style>
   .input-sub,.input-add{
     min-width: 40px;

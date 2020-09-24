@@ -3,7 +3,14 @@ let userSchema = new mongoose.Schema({
   "userId":String,
   "userName":String,
   "userPwd":String,
-  "orderList":Array,
+  "orderList":[{
+    "orderId" : String,
+    "orderTotal" : String,
+    "orderStatus" : String,
+    "createDate" : String,
+    "goodsList" : Array,
+    "addressInfo" :Object ,
+  }],
   "cartList":[
     {
       "productId":{type: String},
@@ -15,6 +22,16 @@ let userSchema = new mongoose.Schema({
       "productNum":Number
     }
   ],
-  "addressList":Array
+  "addressList":[
+    {
+      "addressId":String,
+      "addressId" : String,
+      "userName" : String,
+      "streetName" : String,
+      "postCode" : String,
+      "tel" : String,
+      "isDefault" : Boolean
+    }
+  ]
 })
 module.exports=mongoose.model("User",userSchema)
