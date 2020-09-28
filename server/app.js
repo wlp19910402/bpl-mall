@@ -25,6 +25,7 @@ app.use(function(req,res,next){
     next()
   }else{
     let originUrl = req.originalUrl
+    console.log(888,req.originalUrl)
     // originUrl.indexOf('/goods/list')>-1
     if(originUrl=='/users/login'||originUrl=='/users/logout'||req.path==='/goods/list'){
       next()

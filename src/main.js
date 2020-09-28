@@ -9,18 +9,25 @@ import '@/assets/css/base.css'
 import '@/assets/css/checkout.css'
 import '@/assets/css/login.css'
 import '@/assets/css/product.css'
+import Vuex from 'vuex'
+import storeFile from '@/store/index'
 // import {currency} from "@/util/currency";
 //
 // Vue.filter('currency',currency)
+
 Vue.config.productionTip = false
 Vue.use(VueLazyLoad, {
   loading: '/static/loading/loading-bars.svg'
 })
+Vue.use(Vuex)
+// Vue.use(interFaceUrl)
+const store = new Vuex.Store(storeFile)
 Vue.use(infiniteScroll)
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
+  store,
   components: {
     App
   },

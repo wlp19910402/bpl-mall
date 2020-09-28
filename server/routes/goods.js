@@ -8,7 +8,8 @@ var mongoose = require('mongoose')
 var Goods = require('../models/goods')
 // 链接mongoDB数据库
 // mongoose.connect('mongodb://root:admin@127.0.0.1:27017')
-mongoose.connect('mongodb://127.0.0.1:27017/dumall')
+// mongoose.connect('mongodb://127.0.0.1:27017/dumall')
+mongoose.connect('mongodb://39.105.50.203:27017/dumall')
 
 // 链接成功
 mongoose.connection.on("connected", function () {

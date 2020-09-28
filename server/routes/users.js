@@ -117,6 +117,37 @@ router.get('/cartList/checked',function (req,res,next) {
     }
   })
 })
+//购物车的长度
+router.get('/cartList/len',function (req,res,next) {
+  let userId = req.cookies.userId
+  User.findOne({userId:userId},function(err,doc){
+    if(err){
+      res.json({
+        status:'1',
+        msg:err.message,
+        result:''
+      })
+    }else{
+      if(doc&&doc.cartList){
+        let len=0;
+        doc.cartList.forEach(item=>{
+          len+=item.productNum
+        })
+        res.json({
+          status:'0',
+          msg:'',
+          result:len
+        })
+      }else{
+        res.json({
+          status:'0',
+          msg:'',
+          result:0
+        })
+      }
+    }
+  })
+})
 //购物车删除
 router.post('/cart/del',function(req,res,next){
   let userId = req.cookies.userId,productId= req.body.productId;

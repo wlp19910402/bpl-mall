@@ -4,22 +4,25 @@
 
 const path = require('path')
 
+
 module.exports = {
   dev: {
-
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/goods':{
-        target:"http://localhost:3000"
-      },
-      '/goods/*':{
-        target:"http://localhost:3000"
+      '/goods/**':{
+        target:"http://localhost:4000"
       },
       '/users/**':{
-        target:"http://localhost:3000"
+        target:"http://localhost:4000"
       }
+      // '/goods/**':{
+      //   target:"http://39.105.50.203:8082/dumall/api"
+      // },
+      // '/users/**':{
+      //   target:"http://39.105.50.203:8082/dumall/api"
+      // }
     },
 
     // Various Dev Server settings
@@ -60,8 +63,7 @@ module.exports = {
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
-
+    assetsPublicPath: '/dumall/client',
     /**
      * Source Maps
      */

@@ -105,7 +105,8 @@ import NavFooter from '@/components/NavFooter'
 import NavBread from '@/components/NavBread'
 import Model from '@/components/Model'
 import axios from 'axios'
-
+import {mapState, mapMutations} from 'vuex'
+import interFaceUrl from '@/util/interface'
 export default {
   name: 'GoodsList',
   data: () => ({
@@ -131,7 +132,15 @@ export default {
   mounted () {
     this.getGoodsList()
   },
+  computed: {
+    ...mapState({
+      cartCount: state => state.cartCount
+    })
+  },
   methods: {
+    ...mapMutations({
+      setCartCount: 'setCartCount'
+    }),
     getGoodsList (flag = false) {
       let param = {
         page: this.page,
@@ -140,7 +149,7 @@ export default {
         priceLevel: this.priceChecked
       }
       this.loadMoreLoading = true
-      axios.get(`/goods/list`, {params: param}).then((res) => {
+      axios.get(`${interFaceUrl}goods/list`, {params: param}).then((res) => {
         var result = res.data
         this.loadMoreLoading = false
         if (result.status === '0') {
@@ -156,11 +165,12 @@ export default {
       })
     },
     addCart (id) {
-      axios.post('/goods/addCart', {
+      axios.post(`${interFaceUrl}goods/addCart`, {
         productId: id
       }).then((res) => {
         if (res.data.status === '0') {
           this.mdShowCart = true
+          this.setCartCount(this.cartCount + 1)
         } else {
           this.mdShow = true
           // alert('msg:' + res.data.msg)

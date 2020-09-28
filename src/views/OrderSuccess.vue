@@ -84,7 +84,7 @@ import NavBread from '@/components/NavBread'
 import axios from 'axios'
 import Model from '@/components/Model'
 import {currency} from '@/util/currency'
-
+import interFaceUrl from '@/util/interface'
 export default {
   data: () => ({
     orderList: '',
@@ -93,7 +93,7 @@ export default {
   }),
   components: {NavHeader, NavFooter, NavBread, Model},
   created () {
-   this.init()
+    this.init()
   },
   filters: {
     currency: currency
@@ -102,25 +102,25 @@ export default {
     orderId () {
       return this.$route.query.orderId
     },
-    orderTotal(){
-      if(this.orderList){
+    orderTotal () {
+      if (this.orderList) {
         return this.orderList.orderTotal
       }
       return 0
     }
   },
   methods: {
-init(){
-  if(!this.orderId){
-    return
-  }
-  axios.get('/users/orderDetail', {params: {orderId: this.orderId}}).then(res => {
-    let result = res.data
-    if (result.status === '0') {
-      this.orderList = result.result
+    init () {
+      if (!this.orderId) {
+        return
+      }
+      axios.get(`${interFaceUrl}users/orderDetail`, {params: {orderId: this.orderId}}).then(res => {
+        let result = res.data
+        if (result.status === '0') {
+          this.orderList = result.result
+        }
+      })
     }
-  })
-}
   }
 }
 </script>

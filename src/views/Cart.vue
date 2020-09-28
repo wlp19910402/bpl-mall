@@ -147,7 +147,8 @@ import NavBread from '@/components/NavBread'
 import axios from 'axios'
 import Model from '@/components/Model'
 import {currency} from '@/util/currency'
-
+import {mapState, mapMutations} from 'vuex'
+import interFaceUrl from '@/util/interface'
 export default {
   data: () => ({
     cartList: [],
@@ -180,11 +181,17 @@ export default {
         }
       })
       return total
-    }
+    },
+    ...mapState({
+      cartCount: state => state.cartCount
+    })
   },
   methods: {
+    ...mapMutations({
+      setCartCount: 'setCartCount'
+    }),
     getCartList () {
-      axios.get('/users/cartList').then(res => {
+      axios.get(`${interFaceUrl}users/cartList`).then(res => {
         let result = res.data
         if (result.status === '0') {
           this.cartList = result.result
@@ -198,13 +205,15 @@ export default {
         goods.checked = goods.checked === '1' ? '0' : '1'
       } else if (flag === 'add') {
         goods.productNum++
+        this.setCartCount(this.cartCount + 1)
       } else {
         if (goods.productNum <= 1) {
           return
         }
         goods.productNum--
+        this.setCartCount(this.cartCount - 1)
       }
-      axios.post('/users/cart/edit', {
+      axios.post(`${interFaceUrl}users/cart/edit`, {
         productId: goods.productId,
         productNum: goods.productNum,
         checked: goods.checked
@@ -226,11 +235,12 @@ export default {
       this.delId = id
     },
     delCart () {
-      axios.post('/users/cart/del', {productId: this.delId}).then(res => {
+      axios.post(`${interFaceUrl}users/cart/del`, {productId: this.delId}).then(res => {
         let result = res.data
         if (result.status === '0') {
           this.cartList.forEach((item, index) => {
             if (item.productId === this.delId) {
+              this.setCartCount(this.cartCount - item.productNum)
               this.cartList.splice(index, 1)
             }
           })
@@ -242,7 +252,7 @@ export default {
     },
     toggleCheckAll () {
       let flag = !this.checkAllFlag
-      axios.post('/users/cart/editCheckAll', {
+      axios.post(`${interFaceUrl}users/cart/editCheckAll`, {
         checkAll: flag
       }).then(res => {
         let result = res.data

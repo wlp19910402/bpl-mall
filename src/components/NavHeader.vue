@@ -32,7 +32,7 @@
           <a href="javascript:void(0)" class="navbar-link" @click="loginModalFlag=true" v-if="!nickName">Login</a>
           <a href="javascript:void(0)" class="navbar-link" @click="logout" v-if="nickName">Logout</a>
           <div class="navbar-cart-container">
-            <span class="navbar-cart-count"></span>
+            <span class="navbar-cart-count" v-if="cartCount>0">{{cartCount}}</span>
             <router-link class="navbar-link navbar-cart-link" to="/cart">
               <svg class="navbar-cart-logo" width="30px" height="30px">
                 <use
@@ -80,7 +80,8 @@
 
 <script>
 import axios from 'axios'
-
+import {mapState, mapActions, mapMutations} from 'vuex'
+import interFaceUrl from '@/util/interface'
 export default {
   name: 'NavHeader',
   data () {
@@ -95,13 +96,24 @@ export default {
   mounted () {
     this.checkLogin()
   },
+  computed: {
+    ...mapState({
+      cartCount: state => state.cartCount
+    })
+  },
   methods: {
+    ...mapActions({
+      fetchCartCount: 'fetchCartCount'
+    }),
+    ...mapMutations({
+      setCartCount: 'setCartCount'
+    }),
     login () {
       if (!this.userName || !this.userPwd) {
         this.errorTip = true
         return
       }
-      axios.post('/users/login', {
+      axios.post(`${interFaceUrl}users/login`, {
         userName: this.userName,
         userPwd: this.userPwd
       }).then(response => {
@@ -111,22 +123,24 @@ export default {
           console.log('登录成功')
           this.loginModalFlag = false
           this.nickName = res.result.userName || ''
+          this.fetchCartCount()
         } else {
           this.errorTip = true
         }
       })
     },
     logout () {
-      axios.get('/users/logout').then((res) => {
+      axios.get(`${interFaceUrl}users/logout`).then((res) => {
         if (res.data.status === '0') {
           this.nickName = ''
         }
       })
     },
     checkLogin () {
-      axios.get('/users/checkLogin').then(res => {
+      axios.get(`${interFaceUrl}users/checkLogin`).then(res => {
         if (res.data.status === '0') {
           this.nickName = res.data.result
+          this.fetchCartCount()
         }
       })
     }

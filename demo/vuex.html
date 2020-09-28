@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vuex</title>
+  <script type="application/javascript" src="./../node_modules/vue/dist/vue.js"></script>
+  <script type="application/javascript" src="./../node_modules/vuex/dist/vuex.min.js"></script>
+</head>
+<body>
+<div id="app">
+  <h3>{{title}}</h3>
+  <counter></counter>
+</div>
+<script>
+  const store=new Vuex.Store({
+    state:{
+      count:10
+    },
+    mutations:{
+      addCount:state=>{
+        state.count++
+      }
+    }
+  })
+  const counter={
+    template:`
+      <div>{{count}}对对对</div>
+    `,
+  computed:{
+    count(){
+      return this.$store.state.count
+    }
+  }
+  }
+   new Vue({
+    el:"#app",
+    store,
+    data:{
+      title:"vuex 测试"
+    },
+     components:{counter}
+  })
+</script>
+</body>
+</html>

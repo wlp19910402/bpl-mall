@@ -47,3 +47,14 @@ supervisor
 安装express-session
 ```
 
+启动mongodb
+终端输入：
+```
+ cd /usr/local/mongodb/mongodb-macos-x86_64-4.4.1/bin
+ sudo ./mongod -f /usr/local/mongodb/etc/mongo.conf
+```
+
+pm2线上部署
+pm2 stop /server/bin/www
+pm2 start /server/bin/www
+pm2 list

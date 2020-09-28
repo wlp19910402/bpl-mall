@@ -106,6 +106,7 @@ import NavHeader from '@/components/NavHeader'
 import NavFooter from '@/components/NavFooter'
 import NavBread from '@/components/NavBread'
 import axios from 'axios'
+import interFaceUrl from '@/util/interface'
 import Model from '@/components/Model'
 export default {
   data: () => ({
@@ -130,7 +131,7 @@ export default {
   },
   methods: {
     init () {
-      axios.get('/users/address/list').then(res => {
+      axios.get(`${interFaceUrl}users/address/list`).then(res => {
         let result = res.data
         if (result.status === '0') {
           this.addressList = result.result
@@ -145,7 +146,7 @@ export default {
       }
     },
     setDefault (id) {
-      axios.post('/users/address/default', {addressId: id}).then((res) => {
+      axios.post(`${interFaceUrl}users/address/default`, {addressId: id}).then((res) => {
         let result = res.data
         if (result.status === '0') {
           this.addressList.forEach(item => {
@@ -169,7 +170,7 @@ export default {
       this.delId = id
     },
     delAddress () {
-      axios.post('/users/address/del', {addressId: this.delId}).then(res => {
+      axios.post(`${interFaceUrl}users/address/del`, {addressId: this.delId}).then(res => {
         let result = res.data
         if (result.status === '0') {
           this.addressList.forEach((item, index) => {

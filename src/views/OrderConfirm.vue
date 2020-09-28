@@ -110,6 +110,7 @@ import NavFooter from '@/components/NavFooter'
 import NavBread from '@/components/NavBread'
 import {currency} from '@/util/currency'
 import axios from 'axios'
+import interFaceUrl from '@/util/interface'
 export default {
   name: 'OrderConfirm',
   components: {NavHeader, NavFooter, NavBread},
@@ -139,7 +140,7 @@ export default {
   },
   methods: {
     getCartCheckedList () {
-      axios.get('/users/cartList/checked').then(res => {
+      axios.get(`${interFaceUrl}users/cartList/checked`).then(res => {
         let result = res.data
         if (result.status === '0') {
           this.cartList = result.result
@@ -149,7 +150,7 @@ export default {
       })
     },
     payMent () {
-      axios.post('/users/payment', {addressId: this.$route.query.addressId, orderTotal: this.totalPrice}).then(res => {
+      axios.post(`${interFaceUrl}users/payment`, {addressId: this.$route.query.addressId, orderTotal: this.totalPrice}).then(res => {
         let result = res.data
         if (result.status === '0') {
           this.$router.push({
